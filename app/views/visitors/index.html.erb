@@ -1,1 +1,31 @@
-<h3>Welcome!</h3>
+<% if user_signed_in? %>
+<div class="panel panel-default">
+  <div class="panel-heading">Visitors</div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <!--
+        <th>Status</th>
+        <th>Assigned To</th>
+        -->
+      </tr>
+    </thead>
+    <tbody>
+      <% @visitors.each do |visitor| %>
+        <tr>
+          <td><%= link_to visitor.name, visitor %></td>
+          <td><%= mail_to visitor.email %></td>
+          <td><%= visitor.phone %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<br>
+<%= link_to 'New Visitor', new_visitor_path, :class => 'btn btn-default' %>
+<% end # user_signed_in? %>
+

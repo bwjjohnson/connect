@@ -1,84 +1,14 @@
 Connect
 =========
 
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/).
+Connect is a software solution for getting people connected to your local 
+Church by providing a way for volunteers to communicate and follow up with
+people interested in getting connected.
 
-Diagnostics
------------
-
-This application was built with recipes that are NOT known to work together.
-
-This application was built with preferences that are NOT known to work
-together.
-
-If the application doesn’t work as expected, please [report an issue](https://github.com/RailsApps/rails_apps_composer/issues)
-and include these diagnostics:
-
-We’d also like to know if you’ve found combinations of recipes or
-preferences that do work together.
-
-Recipes:
-
-* core
-* deployment
-* devise
-* email
-* extras
-* frontend
-* gems
-* git
-* init
-* learn_rails
-* locale
-* omniauth
-* pages
-* rails_bootstrap
-* rails_devise
-* rails_devise_pundit
-* rails_foundation
-* rails_omniauth
-* rails_signup_download
-* railsapps
-* readme
-* roles
-* setup
-* tests
-
-Preferences:
-
-* git: true
-* apps4: none
-* dev_webserver: thin
-* prod_webserver: thin
-* database: sqlite
-* templates: erb
-* tests: none
-* frontend: bootstrap3
-* email: gmail
-* authentication: devise
-* devise_modules: default
-* authorization: none
-* form_builder: simple_form
-* pages: about+users
-* locale: none
-* rvmrc: true
-* quiet_assets: true
-* better_errors: true
-* pry: true
-* ban_spiders: true
-* jsruntime: false
-* github: true
-
-Ruby on Rails
+Requirements
 -------------
 
-This application requires:
-
--   Ruby
--   Rails
-
-Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
+This application is build using Ruby on Rails. Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
 
 Database
 --------
@@ -106,21 +36,16 @@ Email delivery is disabled in development.
 Getting Started
 ---------------
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+TODO
 
 Documentation and Support
 -------------------------
 
-This is the only documentation.
+This README is the only documentation.
 
 #### Issues
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-Similar Projects
-----------------
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+If you find any issues, please report them by opening an issue on this repo.
 
 Contributing
 ------------
@@ -139,9 +64,11 @@ me and I’ll add a note to the README so that others can find your work.
 Credits
 -------
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+This application was crafted by Ben Johnson.
 
 License
 -------
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+This software is licensed under the GNU GPL v3.0. Please see LICENSE.txt for 
+the full license text.
+
