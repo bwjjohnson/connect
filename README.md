@@ -8,12 +8,12 @@ people interested in getting connected.
 Requirements
 -------------
 
-This application is build using Ruby on Rails. Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
+This application is built using Ruby on Rails. Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
 
 Database
 --------
 
-This application uses SQLite with ActiveRecord.
+This application uses PostgreSQL with ActiveRecord.
 
 Development
 -----------
@@ -23,20 +23,24 @@ Development
 -   Front-end Framework: Bootstrap 3.0 (Sass)
 -   Form Builder: SimpleForm
 -   Authentication: Devise
--   Authorization: None
--   Admin: None
+-   Admin: user role
 
 Email
 -----
 
-The application is configured to send email using a Gmail account.
-
-Email delivery is disabled in development.
+TODO: The application is configured to send email using a Gmail account. Email delivery is disabled in development.
 
 Getting Started
 ---------------
 
-TODO
+1. Get a development machine for rails (eg. Ubuntu)
+2. Install ruby and rails (rvm works nicely)
+3. Install PostgreSQL server and client libs
+4. Startup PostgreSQL server and add admin user
+5. Clone this repo from GitHub
+6. Install all gem dependencies using bundle and Gemfile
+7. Configure database.yml with development settings
+8. Setup development database using rake db:migrate db:setup
 
 Documentation and Support
 -------------------------
