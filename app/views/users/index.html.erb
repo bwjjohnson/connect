@@ -18,6 +18,10 @@
           <% end %>
         </tbody>
       </table>
+      <br>
+      <div class="btn-group">
+        <%= link_to 'Add New User', new_user_path, :class => "btn btn-default" if admin? %>
+      </div>
     </div>
   </div>
 </div>

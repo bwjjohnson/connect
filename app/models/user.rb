@@ -1,14 +1,17 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :recoverable, :registerable,
+  devise :database_authenticatable, :registerable,
       :rememberable, :trackable, :validatable
 
   ROLES = ["Admin", "Volunteer", "Connector", "Connect Desk"]
 
   def admin?
-    Rails.logger.info "role = #{role}"
     self.role == "Admin"
+  end
+
+  def connect?
+    self.role == "Connect Desk"
   end
 
   #validates :role, inclusion: { in: ROLES,

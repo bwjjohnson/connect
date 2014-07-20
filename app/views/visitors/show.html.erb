@@ -6,5 +6,10 @@
 
 <div class="btn-group">
   <%= link_to 'Edit', edit_visitor_path(@visitor), :class => "btn btn-default" %>
+  <%= link_to 'Delete', '#delete-confirm', "data-id" => @visitor.id, 
+      :class => "delete-confirm btn btn-danger" if admin? %>
   <%= link_to 'Back', visitors_path, :class => "btn btn-default" %>
 </div>
+
+<%= render partial: 'shared/delete_modal', 
+    locals: {type: 'visitor', type_path: '/visitors/'} %>

@@ -15,3 +15,27 @@
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
+
+$(function() {
+  (function ($) {
+      $.each(['show', 'hide'], function (i, ev) {
+        var el = $.fn[ev];
+        $.fn[ev] = function () {
+          this.trigger(ev);
+          return el.apply(this, arguments);
+        };
+      });
+    })(jQuery);
+
+  $('#delete-confirm').on('show', function() {
+    var $submit = $(this).find('.btn-danger'),
+    href = $submit.attr('href');
+    $submit.attr('href', href.replace('identifier', $(this).data('id')));
+  });
+
+  $('.delete-confirm').click(function(e) {
+    e.preventDefault();
+    $('#delete-confirm').data('id', $(this).data('id')).modal('show');
+  });
+});
+

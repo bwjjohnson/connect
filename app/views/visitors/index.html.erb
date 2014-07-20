@@ -1,4 +1,4 @@
-<% if user_signed_in? %>
+<% if user_signed_in? && !connect? %>
 <div class="panel panel-default">
   <div class="panel-heading">Visitors</div>
   <table class="table table-striped">
@@ -28,4 +28,12 @@
 <br>
 <%= link_to 'New Visitor', new_visitor_path, :class => 'btn btn-default' %>
 <% end # user_signed_in? %>
+
+<% if connect? %>
+<div class="jumbotron">
+  <h1>Downtown Cornerstone Church</h1>
+  <h2>Connect Desk</h2>
+  <p><%= link_to 'Start Here', new_visitor_path, :class => 'btn btn-primary btn-lg' %></p>
+</div>
+<% end %>
 

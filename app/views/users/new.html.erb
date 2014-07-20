@@ -1,6 +1,6 @@
 <div class="authform">
-  <%= form_for :user, :url => "/users/add", :html => { :role => 'form'} do |f| %>
-    <h3>Add new user</h3>
+  <%= form_for :user, :url => "/admin/users", :html => { :role => 'form'} do |f| %>
+    <h3>Add New User</h3>
     <div class="form-group">
       <%= f.label :name %>
       <%= f.text_field :name, :autofocus => true, class: 'form-control' %>

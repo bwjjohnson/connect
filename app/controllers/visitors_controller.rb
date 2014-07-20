@@ -1,5 +1,5 @@
 class VisitorsController < ApplicationController
-  before_filter :force_signin
+  before_filter :force_signin 
   before_action :set_visitor, only: [:show, :edit, :update, :destroy]
 
   def force_signin
@@ -20,38 +20,34 @@ class VisitorsController < ApplicationController
   def edit
   end
 
+  def created
+  end
+
   def create
     @visitor = Visitor.new(visitor_params)
 
-    respond_to do |format|
-      if @visitor.save
-        format.html { redirect_to @visitor, notice: 'Visitor was successfully created.' }
-        format.json { render :show, status: :created, location: @visitor }
+    if @visitor.save
+      if current_user.connect?
+        redirect_to '/visitors/created'
       else
-        format.html { render :new }
-        format.json { render json: @visitor.errors, status: :unprocessable_entity }
+        redirect_to @visitor, notice: 'Visitor was successfully created.'
       end
+    else
+      render :new 
     end
   end
 
   def update
-    respond_to do |format|
-      if @visitor.update(visitor_params)
-        format.html { redirect_to @visitor, notice: 'Visitor was successfully updated.' }
-        format.json { render :show, status: :ok, location: @visitor }
-      else
-        format.html { render :edit }
-        format.json { render json: @visitor.errors, status: :unprocessable_entity }
-      end
+    if @visitor.update(visitor_params)
+      redirect_to @visitor, notice: 'Visitor was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @visitor.destroy
-    respond_to do |format|
-      format.html { redirect_to visitors_url, notice: 'Visitor was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to visitors_url, notice: 'Visitor was successfully deleted.'
   end
 
   private

@@ -2,3 +2,15 @@
 <p>Name: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
 <p>Role: <%= @user.role if @user.role %></p>
+
+<br>
+<div class="btn-group">
+  <%= link_to 'Edit', "/admin/users/#{@user.id}/edit", :class => "btn btn-default" if admin? %>
+  <%= link_to 'Delete', '#delete-confirm', "data-id" => @user.id,
+          :class => "delete-confirm btn btn-danger" if admin? %>
+  <%= link_to 'Back', users_path, :class => "btn btn-default" %>
+</div>
+
+<%= render partial: 'shared/delete_modal',
+    locals: {type: 'user', type_path: '/admin/users/'} %>
+

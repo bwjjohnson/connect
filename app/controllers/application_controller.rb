@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   class User::ParameterSanitizer < Devise::ParameterSanitizer
     def account_update
-      default_params.permit(:name, :email, :role, :password, 
+      default_params.permit(:id, :name, :email, :role, :password, 
         :password_confirmation, :current_password)
     end
   end
