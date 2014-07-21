@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
     self.role == "Connect Desk"
   end
 
+  def assignable_users
+    Users.all
+  end
+
   #validates :role, inclusion: { in: ROLES,
   #  message: "%{value} is not a valid role" }
 end

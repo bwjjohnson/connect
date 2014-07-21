@@ -3,6 +3,7 @@
 <p>Name: <%= @visitor.name %></p>
 <p>Email: <%= mail_to @visitor.email %></p>
 <p>Phone: <%= @visitor.phone %></p>
+<p>Assigned To: <%= @visitor.user ? @visitor.user.name : 'Unassigned' %></p>
 
 <div class="btn-group">
   <%= link_to 'Edit', edit_visitor_path(@visitor), :class => "btn btn-default" %>

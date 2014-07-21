@@ -9,8 +9,8 @@
         <th>Phone</th>
         <!--
         <th>Status</th>
-        <th>Assigned To</th>
         -->
+        <th>Assigned To</th>
       </tr>
     </thead>
     <tbody>
@@ -19,6 +19,7 @@
           <td><%= link_to visitor.name, visitor %></td>
           <td><%= mail_to visitor.email %></td>
           <td><%= visitor.phone %></td>
+          <td><%= visitor.user ? visitor.user.name : 'Unassigned' %></td>
         </tr>
       <% end %>
     </tbody>
