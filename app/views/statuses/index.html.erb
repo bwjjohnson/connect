@@ -1,0 +1,93 @@
+<div class="panel panel-default col-md-6 col-md-offset-3">
+  <div class="panel-heading">Visitor Statuses</div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Is Final?</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @statuses.each do |status| %>
+        <tr>
+          <td class="inline inline-text" data-field="name" data-orig="<%= status.name %>"><%= status.name %></td>
+          <td class="inline inline-text" data-field="description" data-orig="<%= status.description %>"><%= status.description %></td>
+          <td class="inline inline-opts" data-field="is_final" data-orig="<%= status.is_final %>" data-opts="true,false"><%= status.is_final %></td>
+          <td data-id="<%= status.id %>">
+          	<span class="inline-save glyphicon glyphicon-ok" style="visibility: hidden;"></span>
+          	<span class="inline-cancel glyphicon glyphicon-remove" style="visibility: hidden;"></span>
+          	<span class="inline-edit glyphicon glyphicon-pencil"></span>
+          	<!-- TODO
+          	<span class="inline-add glyphicon glyphicon-plus-sign"></span>
+          	<span class="inline-delete glyphicon glyphicon-minus-sign"></span>
+          	<span class="move-up glyphicon glyphicon-chevron-up"></span>
+          	<span class="move-down glyphicon glyphicon-chevron-down"></span>
+          	-->
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script>
+$(document).ready(function() {
+  $(".inline-save").click(function(){
+  	var id = $(this).parent().attr("data-id");
+  	var status = {};
+  	$(this).parent().siblings(".inline").each(function(){status[$(this).attr("data-field")]=$(this).text();});
+  	$.ajax({
+      type: "PUT",
+      url: "/statuses/" + id + ".json",
+      data: {status: status}
+    })
+      .done(function( msg ) {
+      showFlash( "success", "Data Successfully Saved." );
+      $(this).parent().siblings(".inline").each(function(){$(this).attr("data-orig",$(this).text())});
+    })
+      .fail(function( jqXHR, textStatus ) {
+      showFlash( "danger", "Request failed: " + textStatus );
+      $(this).parent().siblings(".inline").each(function(){$(this).text($(this).attr("data-orig"));});
+    });
+  	$(this).parent().siblings(".inline-text").each(function(){$(this).removeClass("edit-box").attr("contenteditable", "false");});
+  	$(this).parent().siblings(".inline-opts").each(function(){$(this).text($("#"+$(this).attr("data-field")+id).val());});
+  	$(this).invisible();$(this).siblings(".inline-cancel").invisible();$(this).siblings(".inline-edit").visible();
+  });
+  $(".inline-edit").click(function(){
+  	$(this).parent().siblings(".inline-text").addClass("edit-box").attr("contenteditable", "true");
+  	var id = $(this).parent().attr("data-id");
+  	$(this).parent().siblings(".inline-opts").each(function(){
+  		var select = "<select id=\""+$(this).attr("data-field")+id+"\">";
+  		var selected = $(this).text();
+  		$.each($(this).attr("data-opts").split(','), function(index, val){
+  			select += "<option value=\""+val+"\" "+(val == selected ? "selected" : "")+">"+val+"</option>"
+  		});
+  		select += "</select>";
+  		$(this).html(select);
+  	});
+  	$(this).invisible();$(this).siblings(".inline-save,.inline-cancel").visible();
+  });
+  $(".inline-cancel").click(function(){
+  	$(this).parent().siblings(".inline-text").each(function(){$(this).removeClass("edit-box").attr("contenteditable", "false");});
+  	var id = $(this).parent().attr("data-id");
+  	$(this).parent().siblings(".inline").each(function(){$(this).text($(this).attr("data-orig"));});
+  	$(this).invisible();$(this).siblings(".inline-save").invisible();$(this).siblings(".inline-edit").visible();
+  });
+  $(".inline-add").click(function(){
+	alert("add!");
+  });
+  $(".inline-delete").click(function(){
+	alert("delete!");
+  });
+  $(".move-up").click(function(){
+	alert("Move Up!");
+  });
+  $(".move-down").click(function(){
+	alert("Move Down!");
+  });
+});
+
+
+</script>

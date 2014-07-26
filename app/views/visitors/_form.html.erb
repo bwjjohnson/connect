@@ -4,6 +4,7 @@
       <%= f.input :name %>
       <%= f.input :email %>
       <%= f.input :phone %>
+      <%= f.association :status, label: 'Status', collection: Status.order('"order"'), :include_blank => false%>
       <%= f.association :user, label: 'Assigned User'%>
     </div>
     <br>

@@ -39,3 +39,13 @@ $(function() {
   });
 });
 
+function showFlash(type, msg){
+  $("#alert_area").html("\
+    <div id=\"alert_"+type+"\" class=\"alert alert-"+type+" fade in\" style=\"display: none;\">\
+      <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>\
+      <div id=\"flash_"+type+"\"></div>\
+    </div>\
+  ");
+  $("#flash_"+type).text(msg);
+  $("#alert_"+type).fadeIn();
+}

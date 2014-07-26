@@ -7,9 +7,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Phone</th>
-        <!--
         <th>Status</th>
-        -->
         <th>Assigned To</th>
       </tr>
     </thead>
@@ -19,6 +17,7 @@
           <td><%= link_to visitor.name, visitor %></td>
           <td><%= mail_to visitor.email %></td>
           <td><%= visitor.phone %></td>
+          <td><%= visitor.status.name %></td>
           <td><%= visitor.user ? visitor.user.name : 'Unassigned' %></td>
         </tr>
       <% end %>

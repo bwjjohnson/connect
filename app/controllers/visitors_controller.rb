@@ -24,7 +24,7 @@ class VisitorsController < ApplicationController
   end
 
   def create
-    @visitor = Visitor.new(visitor_params)
+    @visitor = Visitor.new(visitor_params.merge({:created_by => current_user.name}))
 
     if @visitor.save
       if current_user.connect?
@@ -58,6 +58,6 @@ class VisitorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def visitor_params
-      params.require(:visitor).permit(:name, :email, :phone, :user_id)
+      params.require(:visitor).permit(:name, :email, :phone, :user_id, :status_id)
     end
 end

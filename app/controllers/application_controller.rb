@@ -7,6 +7,14 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
+  before_action :authenticate_user!
+
+  def verify_admin_access
+    unless @user == current_user || current_user.admin?
+      redirect_to :back, :alert => "Access denied."
+    end
+  end
+
   protected
 
   class User::ParameterSanitizer < Devise::ParameterSanitizer
