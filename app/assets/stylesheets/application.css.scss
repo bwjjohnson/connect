@@ -29,3 +29,13 @@ a.navbar-logo {
 .edit-box {
   background-color: gray !important;
 }
+
+.inline-save,
+.inline-cancel{
+  cursor: pointer;
+}
+
+select.changed {
+  background-color: #f0ad4e;
+}
+

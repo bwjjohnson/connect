@@ -9,16 +9,34 @@
         <th>Phone</th>
         <th>Status</th>
         <th>Assigned To</th>
+        <th>Edit</th>
       </tr>
     </thead>
     <tbody>
       <% @visitors.each do |visitor| %>
-        <tr>
+        <tr class="inline" data-id="<%= visitor.id %>">
           <td><%= link_to visitor.name, visitor %></td>
           <td><%= mail_to visitor.email %></td>
           <td><%= visitor.phone %></td>
-          <td><%= visitor.status.name %></td>
-          <td><%= visitor.user ? visitor.user.name : 'Unassigned' %></td>
+          <td class="inline inline-opts">
+            <select class="inline" data-orig="<%= visitor.status.id %>" data-field="status_id">
+              <% Status.order('"order"').each do |status| %>
+              <option value="<%= status.id %>" <%= status.name == visitor.status.name ? "selected" : "" %> ><%= status.name %></option>
+              <% end %>
+            </select>
+          </td>
+          <td class="inline inline-opts">
+            <select class="inline" data-orig="<%= visitor.user ? visitor.user.id : 0 %>" data-field="user_id">
+              <option value="0">Unassigned</option>
+              <% User.all.each do |user| %>
+              <option value="<%= user.id %>" <%= (visitor.user && (user.id == visitor.user.id)) ? "selected" : "" %> ><%= user.name %></option>
+              <% end %>
+            </select>
+          </td>
+          <td class="inline inline-buttons">
+            <span class="inline-save glyphicon glyphicon-ok" style="visibility: hidden;"></span>
+            <span class="inline-cancel glyphicon glyphicon-remove" style="visibility: hidden;"></span> 
+          </td>
         </tr>
       <% end %>
     </tbody>
@@ -26,7 +44,9 @@
 </div>
 
 <br>
-<%= link_to 'New Visitor', new_visitor_path, :class => 'btn btn-default' %>
+<%= link_to 'New Visitor', new_visitor_path, :class => 'btn btn-success' %>
+<%= link_to 'Revert All' , '#', :id => 'revert_all', :class => 'btn btn-danger' %>
+<%= link_to 'Save All' , '#', :id => 'save_all', :class => 'btn btn-primary' %>
 <% end # user_signed_in? %>
 
 <% if connect? %>
@@ -37,3 +57,45 @@
 </div>
 <% end %>
 
+<script>
+$(document).ready(function() {
+  $("select.inline").change(function() {
+    if ($(this).val() != $(this).attr("data-orig")) { $(this).addClass("changed"); $(this).parent().siblings(".inline-buttons").children(".inline-save,.inline-cancel").visible(); }
+    else { $(this).removeClass("changed"); $(this).parent().siblings(".inline-buttons").children(".inline-save,.inline-cancel").invisible(); }
+  });
+  $(".inline-save").click(function(){
+    var id = $(this).parent().parent().attr("data-id");
+    var visitor = {};
+    $(this).parent().siblings(".inline").children("select.inline").each(function(){visitor[$(this).attr("data-field")]=$(this).val();});
+    var selects = $(this).parent().siblings(".inline").children("select.inline");
+    $.ajax({
+      type: "PUT",
+      url: "/visitors/" + id + ".json",
+      data: {visitor: visitor}
+    })
+      .done(function( msg ) {
+      showFlash( "success", "Data Successfully Saved." );
+      selects.each(function(){$(this).attr("data-orig",$(this).val())});
+      selects.removeClass("changed");
+    })
+      .fail(function( jqXHR, textStatus ) {
+      showFlash( "danger", "Request failed: " + textStatus );
+      selects.each(function(){$(this).val($(this).attr("data-orig"));});
+    });
+    $(this).invisible();$(this).siblings(".inline-cancel").invisible();
+  });
+  $(".inline-cancel").click(function(){
+    $(this).parent().siblings(".inline").children("select.inline").each(function(){$(this).val($(this).attr("data-orig"));});
+    $(this).parent().siblings(".inline").children("select.inline").removeClass("changed");
+    $(this).invisible();$(this).siblings(".inline-save").invisible();
+  });
+  $("#save_all").click(function(event){
+    $(".inline-save").trigger("click");
+    event.preventDefault();
+  });
+  $("#revert_all").click(function(event){
+    $(".inline-cancel").trigger("click");
+    event.preventDefault();
+  });
+});
+</script>
