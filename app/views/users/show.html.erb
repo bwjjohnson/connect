@@ -2,8 +2,10 @@
 <p>Name: <%= @user.name if @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
 <p>Role: <%= @user.role if @user.role %></p>
+<p>Signature: </p>
+<textarea readonly disabled><%= @user.signature if @user.signature %></textarea>
 
-<br>
+<br><br>
 <div class="btn-group">
   <%= link_to 'Edit', "/admin/users/#{@user.id}/edit", :class => "btn btn-default" if admin? %>
   <%= link_to 'Delete', '#delete-confirm', "data-id" => @user.id,

@@ -1,4 +1,4 @@
 <% if user_signed_in? && !connect? %>
   <li><%= link_to 'Users', users_path %></li>
-  <li><%= link_to 'Email Templates', '#' %></li>
+  <li><%= link_to 'Templates', email_templates_path %></li>
 <% end %>

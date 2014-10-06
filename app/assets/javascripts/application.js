@@ -12,11 +12,13 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap/bootstrap-tooltip
 //= require turbolinks
 //= require bootstrap
 //= require_tree .
 
-$(function() {
+var ready;
+ready = function() {
   (function ($) {
       $.each(['show', 'hide'], function (i, ev) {
         var el = $.fn[ev];
@@ -37,7 +39,10 @@ $(function() {
     e.preventDefault();
     $('#delete-confirm').data('id', $(this).data('id')).modal('show');
   });
-});
+
+  $("a[rel='tooltip']").tooltip();
+  $('.popover').popover();
+};
 
 function showFlash(type, msg){
   $("#alert_area").html("\
@@ -49,3 +54,7 @@ function showFlash(type, msg){
   $("#flash_"+type).text(msg);
   $("#alert_"+type).fadeIn();
 }
+
+// Use this so that we get document ready events using turbolinks
+$(document).ready(ready);
+$(document).on('page:load', ready);

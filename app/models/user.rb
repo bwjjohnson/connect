@@ -18,6 +18,10 @@ class User < ActiveRecord::Base
     Users.all
   end
 
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:username, :email) }
+  end
+
   #validates :role, inclusion: { in: ROLES,
   #  message: "%{value} is not a valid role" }
 end

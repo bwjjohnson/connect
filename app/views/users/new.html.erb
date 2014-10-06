@@ -10,6 +10,10 @@
       <%= f.email_field :email, class: 'form-control' %>
     </div>
     <div class="form-group">
+      <%= f.label :signature %>
+      <%= f.text_area :signature, class: 'form-control' %>
+    </div>
+    <div class="form-group">
       <%= f.label :role %>
       <%= f.select :role, User::ROLES, class: 'form-control' %>
     </div>

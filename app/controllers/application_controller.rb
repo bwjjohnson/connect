@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   skip_filter :require_no_authentication
 
-  before_action :configure_permitted_parameters, if: :devise_controller?
+  #before_action :configure_permitted_parameters, if: :devise_controller?
 
   before_action :authenticate_user!
 
@@ -32,3 +32,4 @@ class ApplicationController < ActionController::Base
     end
   end
 end
+
